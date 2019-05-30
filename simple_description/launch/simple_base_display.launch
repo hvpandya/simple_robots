@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="use_gui" default="true"/>
+  <arg name="rviz_config" default="$(find simple_description)/config/simple_base_display.rviz"/>
+
+  <!-- load robot_description to param_server -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find simple_description)/urdfs/simple_base.urdf.xacro"/>
+
+  <!-- publish fake joint state/values -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher">
+    <param name="use_gui" value="$(arg use_gui)"/>
+  </node>
+
+  <!-- publish tf -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher"/>
+
+  <!-- rviz for visualization -->
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/>
+</launch>
