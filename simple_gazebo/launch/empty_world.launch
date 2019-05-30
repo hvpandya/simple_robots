@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="debug" default="false"/>
+  <arg name="gui" default="true"/>
+  <arg name="headless" default="false"/>
+  <arg name="paused" default="false"/>
+
+  <!-- load robot_description to param_server -->
+  <param name="robot_description" command="$(find xacro)/xacro $(find simple_description)/urdfs/simple_base.gazebo.xacro"/>
+
+  <!-- load gazebo empty world -->
+  <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <arg name="debug" value="$(arg debug)"/>
+    <arg name="gui" value="$(arg gui)"/>
+    <arg name="headless" value="$(arg headless)"/>
+    <arg name="paused" value="$(arg paused)"/>
+    <arg name="use_sim_time" value="true"/>
+  </include>
+
+  <!-- publish tf -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="state_publisher">
+    <param name="publish_frequency" value="100.0"/>
+  </node>
+
+  <!-- spawn robot in gazebo world -->
+  <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen"
+    args="-urdf -param robot_description -model simple_base -x 0 -y 0 -z 0 -Y 0"/>
+</launch>

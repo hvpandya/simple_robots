@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>simple_gazebo</name>
+  <version>0.0.0</version>
+  <description>The simple_gazebo package</description>
+
+  <author email="hvpandya@ncsu.edu">Harsh Pandya</author>
+  <maintainer email="hvpandya@ncsu.edu">Harsh Pandya</maintainer>
+
+  <license>BSD</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>gazebo_ros</exec_depend>
+  <exec_depend>simple_description</exec_depend>
+</package>
